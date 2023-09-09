@@ -1,14 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./styles/index.css";
-import App from "./components/App";
-import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   ApolloProvider,
   ApolloClient,
   createHttpLink,
   InMemoryCache,
 } from "@apollo/client";
+
+import App from "./components/App";
+import reportWebVitals from "./reportWebVitals";
+import CreateLink from "./components/CreateLink";
+
+import "./styles/index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/create",
+        element: <CreateLink />,
+      },
+    ],
+  },
+]);
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000",
@@ -23,7 +40,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <RouterProvider router={router} />
     </ApolloProvider>
   </React.StrictMode>
 );

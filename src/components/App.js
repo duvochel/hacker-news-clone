@@ -1,13 +1,21 @@
 import React, { Component } from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Header from "./Header";
 import LinkList from "./LinkList";
 import CreateLink from "./CreateLink";
 
 class App extends Component {
   render() {
     return (
-      <div className="mw5 mw7-ns center pa3 ph5-ns">
-        <LinkList />
-        <CreateLink />
+      <div className="center w85">
+        <Header />
+        <div className="ph3 pv1 background-gray">
+          <Routes>
+            <Route path="/" element={<LinkList />} />
+            <Route path="/create" element={<CreateLink />} />
+          </Routes>
+        </div>
       </div>
     );
   }
