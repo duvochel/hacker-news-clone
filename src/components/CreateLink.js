@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { useMutation, gql } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useMutation, gql } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
+
+import { FEED_QUERY } from './LinkList';
 
 const CREATE_LINK_MUTATION = gql`
   mutation PostMutation($description: String!, $url: String!) {
@@ -15,15 +17,29 @@ const CREATE_LINK_MUTATION = gql`
 
 const CreateLink = () => {
   const [formState, setFormState] = useState({
-    description: "",
-    url: "",
+    description: '',
+    url: ''
   });
 
   const navigate = useNavigate();
 
   const [createLink] = useMutation(CREATE_LINK_MUTATION, {
     variables: { description: formState.description, url: formState.url },
-    onCompleted: () => navigate("/"),
+    onCompleted: () => navigate('/'),
+    update(cache, { data: { link } }) {
+      const { feed } = cache.readQuery({
+        query: FEED_QUERY,
+        variables: { orderBy: { createdAt: 'desc' } }
+      });
+      
+      const updatedLinks = feed.links.push(link);
+
+      cache.writeQuery({
+        query: FEED_QUERY,
+        data: { feed: { links: updatedLinks } },
+        variables: { orderBy: { createdAt: 'desc' } }
+      });
+    }
   });
 
   return (
@@ -41,7 +57,7 @@ const CreateLink = () => {
             onChange={(e) =>
               setFormState({
                 ...formState,
-                description: e.target.value,
+                description: e.target.value
               })
             }
             type="text"
@@ -53,7 +69,7 @@ const CreateLink = () => {
             onChange={(e) =>
               setFormState({
                 ...formState,
-                url: e.target.value,
+                url: e.target.value
               })
             }
             type="text"
