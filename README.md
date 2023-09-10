@@ -1,9 +1,7 @@
 # React App with Apollo
 Hackernews clone.
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Frontend application focused on GraphQL and Apollo.\
+The server should be started with `yarn run dev` in a dedicated terminal and will run on [http://localhost:4000](http://localhost:4000).
 
 ## Available Scripts
 
