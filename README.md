@@ -1,5 +1,5 @@
 # Full stack Hacker News Clone in Typescript
-## Stack: GraphQL, Apollo client/server, Prisma and SQLite.\
+## Stack: GraphQL, Apollo client/server, Prisma and SQLite
 The server should be started with `yarn run watch` in a dedicated terminal and will run on [http://localhost:4000](http://localhost:4000).
 
 ## Available Scripts
