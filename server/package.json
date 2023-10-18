@@ -8,7 +8,6 @@
     "generate": "graphql-codegen --config codegen.ts",
     "compile": "yarn run generate && tsc && tsc-alias",
     "start": "yarn run compile && node ./dist/index.js",
-    "dev": "ts-node-dev --transpile-only --no-notify --exit-child src/index.ts",
     "watch": "concurrently  --names \"CodeGen,TS,Nodemon\" -c \"bgYellow,bgBlue,bgMagenta\" \"graphql-codegen --watch 'src/**/*.ts'\"  \"tsc -w \" \"tsc-alias -w\" \"nodemon --ignore 'src/__generated__*.ts' ./dist/index.js \"",
     "codegen": "graphql-codegen --config codegen.ts"
   },

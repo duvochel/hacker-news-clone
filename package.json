@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "BROWSER=none react-scripts start",
+    "start": "yarn run compile && BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w",
