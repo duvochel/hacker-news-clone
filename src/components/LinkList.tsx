@@ -1,12 +1,16 @@
+import { Feed } from '@/__generated__/graphql';
+
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 
-import Link from './Link';
+import LinkElement from './LinkElement';
+
+export interface FeedResult {
+  feed: Feed;
+}
 
 export const FEED_QUERY = gql`
-   query FeedQuery(
-        $orderBy: LinkOrderByInput
-    ){
+  query FeedQuery($orderBy: LinkOrderByInput) {
     feed(orderBy: $orderBy) {
       id
       links {
@@ -45,7 +49,7 @@ const LinkList = () => {
       {data && (
         <>
           {data.feed.links.map((link, index) => (
-            <Link key={link.id} link={link} index={index} />
+            <LinkElement key={link.id} link={link} index={index} />
           ))}
         </>
       )}

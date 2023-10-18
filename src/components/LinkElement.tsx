@@ -1,9 +1,11 @@
+import { Link } from '@/__generated__/graphql';
+
 import React from 'react';
 import { useMutation, gql } from '@apollo/client';
 
 import { AUTH_TOKEN } from '../constants';
 import { timeDifferenceForDate } from '../utils';
-import { FEED_QUERY } from './LinkList';
+import { FEED_QUERY, FeedResult } from './LinkList';
 
 const CREATE_VOTE_MUTATION = gql`
   mutation CreateVote($linkId: ID!) {
@@ -13,8 +15,12 @@ const CREATE_VOTE_MUTATION = gql`
   }
 `;
 
-const Link = (props) => {
-  const { link } = props;
+interface LinkProps {
+  link: Link;
+  index: number;
+}
+
+const LinkElement = ({ link, index }: LinkProps) => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
 
   const [vote, { error }] = useMutation(CREATE_VOTE_MUTATION, {
@@ -22,11 +28,11 @@ const Link = (props) => {
       linkId: link.id
     },
     update(cache, { data: { vote } }) {
-      const { feed } = cache.readQuery({
+      const { feed } = cache.readQuery<FeedResult>({
         query: FEED_QUERY,
         variables: { orderBy: { createdAt: 'desc' } }
       });
-      
+
       const updatedLinks = feed.links.map((feedLink) => {
         if (feedLink.id === link.id) {
           return {
@@ -47,7 +53,7 @@ const Link = (props) => {
   return (
     <div className="flex mt2 items-start">
       <div className="flex items-center">
-        <span className="gray">{props.index + 1}.</span>
+        <span className="gray">{index + 1}.</span>
         {authToken && (
           <div
             className="ml1 gray f11"
@@ -79,4 +85,4 @@ const Link = (props) => {
   );
 };
 
-export default Link;
+export default LinkElement;

@@ -2,11 +2,16 @@
   "name": "hackernews-react-apollo",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "BROWSER=none react-scripts start",
+    "build": "react-scripts build",
+    "compile": "graphql-codegen",
+    "watch": "graphql-codegen -w",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@apollo/client": "^3.8.3",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
     "graphql": "^16.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -14,11 +19,14 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.0"
   },
-  "scripts": {
-    "start": "BROWSER=none react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "typescript": "^5.2.2"
   },
   "eslintConfig": {
     "extends": [

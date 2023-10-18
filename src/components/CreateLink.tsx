@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 
-import { FEED_QUERY } from './LinkList';
+import { FEED_QUERY, FeedResult } from './LinkList';
 
 const CREATE_LINK_MUTATION = gql`
   mutation PostMutation($description: String!, $url: String!) {
@@ -27,7 +27,7 @@ const CreateLink = () => {
     variables: { description: formState.description, url: formState.url },
     onCompleted: () => navigate('/'),
     update(cache, { data: { link } }) {
-      const { feed } = cache.readQuery({
+      const { feed } = cache.readQuery<FeedResult>({
         query: FEED_QUERY,
         variables: { orderBy: { createdAt: 'desc' } }
       });
